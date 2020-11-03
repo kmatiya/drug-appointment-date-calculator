@@ -10,13 +10,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pih.drug.calculator.api.util.CalendarCalculator;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int MINIMUM_DAYS = 30;
-    public static final int DIVIDER_MULTIPLIER = 2;
     private DatePicker drugDatePicker;
     private EditText numberOfDrugsEditText;
     private TextView nextAppointmentDateTextView;
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
             Calendar calendar = Calendar.getInstance();
             calendar.set(year,month,day);
-            calendar = calculateNextAppointmentDate(calendar, Integer.parseInt(input));
+            calendar = CalendarCalculator.calculateNextAppointmentDate(calendar, Integer.parseInt(input));
             @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String dateFormatted = dateFormat.format(calendar.getTime());
             String message = "Next Appointment Date is "+ dateFormatted;
@@ -43,13 +43,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private Calendar calculateNextAppointmentDate(Calendar calendar,int numberOfDrugs)
-    {
-        int divider = numberOfDrugs / MINIMUM_DAYS;
-        int daysToNextAppointment = numberOfDrugs - (divider * DIVIDER_MULTIPLIER);
-        calendar.add(Calendar.DAY_OF_MONTH,daysToNextAppointment);
-        return calendar;
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
