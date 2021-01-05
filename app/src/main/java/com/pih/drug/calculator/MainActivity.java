@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public void calculate(View view)
     {
         String input = numberOfDrugsEditText.getText().toString();
-        if(input == null || input.equals("")) {
+        if(input.equals("")) {
             Toast.makeText(this,"Number of Drugs cannot be blank",Toast.LENGTH_LONG).show();
         }
         else {
